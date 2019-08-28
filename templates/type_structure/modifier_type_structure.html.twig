@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-6">
+        <div>
+            <label for="type-libelle" class="required">Libellé</label>
+            <input type="text" id="type-libelle" name="type-libelle" required="required"
+                   value="{% if type is not null %}{{ type.libType }}{% endif %}" class="form-control"/>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div>
+            <label for="type-hrch">Structure supérieure</label>
+            <select id="type-hrch" name="type-hrch" class="" style="height: 26px; line-height: 26px;">
+                <option value=""></option>
+                {% if autre_type is not null %}
+                    {% for Type in autre_type %}
+                        {% if type.hrch is null %}
+                            <option value="{{ Type.id }}">{{ Type.libType }}</option>
+                        {% elseif Type.id == type.hrch.id %}
+                            <option value="{{ Type.id }}" selected>{{ Type.libType }}</option>
+                        {% elseif Type.id != type.hrch.id %}
+                            <option value="{{ Type.id }}">{{ Type.libType }}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </select>
+        </div>
+
+        <div>
+            <input type="hidden" name="type-id" value="{% if type is not null %}{{ type.id }}{% endif %}"/>
+        </div>
+    </div>
+</div>
